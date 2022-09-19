@@ -1,2 +1,2 @@
 # Functional-workshop
-![Image]([http://~](https://prnt.sc/q2HgfFkykety))
+![Image](https://prnt.sc/q2HgfFkykety)
