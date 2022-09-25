@@ -1,16 +1,12 @@
 # Functional Javascript Workshop
 
+https://github.com/timoxley/functional-javascript-workshop
+
 ## Higher Order Functions
 
 - `Higher-order function` là một hàm hoạt động trên các hàm khác, bằng cách lấy chúng làm tham số hoặc trả về chúng. nói đơn giản là hàm nhận một hàm dưới dạng đối số hoặc trả về hàm dưới dạng đầu ra.
 
-- Nó thực hiện ít nhất một trong những điều sau:
-
-  - Lấy một hoặc nhiều các chức năng làm đầu vào
-
-  - Đầu ra của một hàm
-
-- Không giống như nhiều ngôn ngữ khác với các tính năng bắt buộc, JavaScript cho phép bạn sử dụng các higher-order functions (hàm bậc cao) hơn vì nó có "first-class functions: hàm hạng nhất". Điều này có nghĩa là các hàm có thể được coi giống như bất kỳ giá trị nào khác trong JavaScript: giống như String hoặc Number, các giá trị của Function có thể được lưu trữ dưới dạng biến, thuộc tính trên đối tượng hoặc được truyền cho các hàm khác dưới dạng đối số. Các giá trị của hàm thực sự là các Object (kế thừa từ `Function.prototype`) nên bạn thậm chí có thể thêm thuộc tính và lưu trữ giá trị trên chúng, giống như bất kỳ Object thông thường nào.
+- Không giống như nhiều ngôn ngữ khác với các tính năng bắt buộc, JavaScript cho phép bạn sử dụng các `higher-order functions` hơn vì nó có `"first-class functions"`. Điều này có nghĩa là các hàm có thể được coi giống như bất kỳ giá trị nào khác trong JavaScript: giống như String hoặc Number, các giá trị của Function có thể được lưu trữ dưới dạng biến, thuộc tính trên đối tượng hoặc được truyền cho các hàm khác dưới dạng đối số. Các giá trị của hàm thực sự là các Object (kế thừa từ `Function.prototype`) nên bạn thậm chí có thể thêm thuộc tính và lưu trữ giá trị trên chúng, giống như bất kỳ Object thông thường nào.
 
 - Sự khác biệt chính giữa Function và các loại giá trị khác trong JavaScript là cú pháp gọi (call syntax): nếu tham chiếu đến một hàm được theo sau bởi dấu ngoặc đơn và một số giá trị được phân tách bằng dấu phẩy tùy chọn: `someFunctionValue(arg1, arg2, etc)`, thì phần thân hàm sẽ được thực thi với các đối số được cung cấp (nếu có) .
 - Chúng ta sẽ chứng minh rằng các hàm có thể được truyền dưới dạng giá trị bằng cách chuyển cho bạn một hàm dưới dạng đối số.
@@ -26,7 +22,7 @@
 
   module.exports = repeat;
 
-  // operation: Một hàm, không nhận đối số, không trả về giá trị hữu ích
+  // operation: Một hàm, không nhận đối số, không trả về giá trị
   // num: số lần gọi operation
   ```
 
@@ -63,7 +59,7 @@
 
 ## Basic: Filter
 
-- Phương thức `filter()` tạo một mảng mới được lọc xuống chỉ các phần tử từ mảng đã cho vượt qua bài kiểm tra được thực hiện bởi hàm được cung cấp.
+- Phương thức `filter()` tạo một mảng mới được lọc xuống chỉ các phần tử từ mảng đã cho thỏa mãn điều kiện được thực hiện bởi hàm được cung cấp.
 
 - `filter()` không thực thi hàm cho các phần tử trống
 
@@ -87,7 +83,7 @@
 
 ## Basic: Every Some
 
-- Phương thức `every()` giúp kiểm tra xem tất cả các phần tử trong mảng có thỏa mãn một điều kiện nào đó hay không. Nó trả về một giá trị là `Boolean`. Nếu tất cả phần tử đều thỏa mãn thì trả về `true`, ngược lại chỉ cần một phần tử không thỏa mãn thì nó sõ trả về `fales`
+- Phương thức `every()` giúp kiểm tra xem tất cả các phần tử trong mảng có thỏa mãn một điều kiện nào đó hay không. Nó trả về một giá trị là `Boolean`. Nếu tất cả phần tử đều thỏa mãn thì trả về `true`, ngược lại chỉ cần một phần tử không thỏa mãn thì nó sõ trả về `false`
 
   - Ví dụ
 
@@ -167,9 +163,40 @@
 
 - Phương thức `call()` gọi hàm với một giá trị `this` đã cho và các đối số được cung cấp riêng lẻ.
 
-- Chúng ta có thể sử dụng hasOwnProperty từ Object.prototype, nếu chúng ta gọi nó với giá trị này được đặt thành thứ gì đó 'trông giống như một đối tượng'. Lời gọi hàm # cho phép chúng ta gọi bất kỳ hàm nào có giá trị thay đổi.
+  ```js
+  function Product(name, price) {
+    this.name = name;
+    this.price = price;
+  }
+  ```
 
-- Ví dụ: Viết một hàm duckCount trả về số lượng đối số được truyền vho nó có thuộc tính 'quack' được xác định trực tiếp trên chúng. Không khớp với các giá trị được kế thừa từ nguyên mẫu.
+- `Pototype` là cơ chế để thực hiện mô hình OOP của Javascript, mà các object được kế thừa các tính năng như nhau. Mỗi một object trong Javascript đều có một thuộc tính nội bộ (internal property) gọi là prototype.
+
+```js
+var objCreated = Object.create({ quack: true });
+var objCreatedSlash = { quack: true };
+var object = Object.create(null);
+object.quack = function () {
+  console.log("quack");
+};
+console.log(Object.getPrototypeOf(object) === Object.prototype); // => false
+console.log(Object.getPrototypeOf(object) === null); // => true
+console.log(Object.prototype.hasOwnProperty.call(object, "quack")); // => true
+//check objCreated
+console.log(Object.prototype.hasOwnProperty.call(objCreated, "quack")); // => false
+//check objCreatedSlash
+console.log(Object.prototype.hasOwnProperty.call(objCreatedSlash, "quack")); // => true
+```
+
+- Sự khác biệt giữa 2 cách khởi tạo đối tượng
+
+  - `Object.create()` là phương thức tạo một đối tượng mới, sử dụng một đối tượng có sẵn để làm nguyên mẫu của đối tượng mới được tạo.
+  - `{}` Cũng là phương thức tạo một đối tượng mới, sử dụng ngắn gọn và nhanh hơn.
+
+- Trong Javascript, để viết các trương trình mạnh, đôi khi chúng ta cần kiểm tra một đối tượng có phù hợp với kiểu mà chúng ta cần hay không thì chúng ta cso thể sử dụng `Object#hasOwnProperty` để phát hiện một đối tượng có một thuộc tính được xác định trên chính nó, có nghĩa là không được kế thừa từ nguyên mẫu của nó.
+- `hasOwnProperty` trong Javascript là một phương thức trong Object, có tác dụng kiểu tra một thuộc tính có tồn tại trong Object hay không. Nếu thuộc tính chỉ định tồn tại trong object chỉ định thì nó sẽ được trả về `true`. Nếu không tồn tại thì sẽ trả về giá trị `fale.
+
+- Ví dụ: Viết một hàm duckCount trả về số lượng đối số được truyền cho nó có thuộc tính 'quack' được xác định trực tiếp trên chúng. Không khớp với các giá trị được kế thừa từ nguyên mẫu.
 
   ```js
   function duckCount() {
@@ -217,9 +244,9 @@
 
 ## Partial Application with Bind
 
-- Phương thức `bind()` tạo ra một hàm mới, khi được gọi, từ khóa `this` của nó được đặt thành giá trị được cung cấp, với một chuỗi các đối số đã cho trước bất kỳ đối số nào được cung cấp khi hàm mới được gọi.
+- Phương thức `bind()` là một hàm Javascript nguyên bản giúp chúng ta đạt được cả ứng dụng từng phần và trình duyệt. Nó đảm bảo hàm được gọi từ một `this` ngữ cảnh củ thể, với `n` đối số được cho trước
 
-- Ví dụ: Sử dụng `Function#bind` để triển khai một chức năng ghi nhật ký cho phép bạn thông báo namespace. Bạn phải lấy một string namespace và trả về một function in thông báo tới bảng điều khiển với namespace được thêm vào trước. Đảm bảo tất cả các đối số được truyền cho hàm ghi được trả về đều được in.
+- Ví dụ: Sử dụng `Function#bind` để triển khai một logging function cho phép bạn thông báo namespace. Bạn phải lấy một string namespace và trả về một function in thông báo tới bảng điều khiển với namespace được thêm vào trước. Đảm bảo tất cả các đối số được truyền cho hàm ghi được trả về đều được in.
 
   ```js
   module.exports = function (namespace) {
@@ -395,7 +422,7 @@
 
 ## Currying
 
-- `Currying` là một kỹ thuật nâng cao để làm việc với các chức năng. Nó không chỉ được sử dụng trong Javascript mà còn được sử dụng trong các ngôn ngữ khác
+- `Currying` là một kỹ thuật nâng cao để làm việc với các chức năng, làm đơn giản hóa một hàm bằng cách chia nhỏ nó thành nhiều hàm một đối số. Nó không chỉ được sử dụng trong Javascript mà còn được sử dụng trong các ngôn ngữ khác
 
 - Ví dụ: Tạo một hàm 'curryN' cho một số lượng đối số tùy ý, curryN sẽ nhận hai tham số
 
