@@ -6,12 +6,12 @@ https://github.com/timoxley/functional-javascript-workshop
 
 - `Higher-order function` là một hàm hoạt động trên các hàm khác, bằng cách lấy chúng làm tham số hoặc trả về chúng. nói đơn giản là hàm nhận một hàm dưới dạng đối số hoặc trả về hàm dưới dạng đầu ra.
 
-- Không giống như nhiều ngôn ngữ khác với các tính năng bắt buộc, JavaScript cho phép bạn sử dụng các `higher-order functions` hơn vì nó có `"first-class functions"`. Điều này có nghĩa là các hàm có thể được coi giống như bất kỳ giá trị nào khác trong JavaScript: giống như String hoặc Number, các giá trị của Function có thể được lưu trữ dưới dạng biến, thuộc tính trên đối tượng hoặc được truyền cho các hàm khác dưới dạng đối số. Các giá trị của hàm thực sự là các Object (kế thừa từ `Function.prototype`) nên bạn thậm chí có thể thêm thuộc tính và lưu trữ giá trị trên chúng, giống như bất kỳ Object thông thường nào.
+- Không giống như nhiều ngôn ngữ khác với các tính năng bắt buộc, JavaScript cho phép bạn sử dụng các `higher-order functions` hơn vì nó có [first-class function](https://developer.mozilla.org/en-US/docs/Glossary/First-class_Function). Điều này có nghĩa là các hàm có thể được coi giống như bất kỳ giá trị nào khác trong JavaScript: giống như String hoặc Number, các giá trị của Function có thể được lưu trữ dưới dạng biến, thuộc tính trên đối tượng hoặc được truyền cho các hàm khác dưới dạng đối số. Các giá trị của hàm thực sự là các Object (kế thừa từ `Function.prototype`) nên bạn thậm chí có thể thêm thuộc tính và lưu trữ giá trị trên chúng, giống như bất kỳ Object thông thường nào.
 
 - Sự khác biệt chính giữa Function và các loại giá trị khác trong JavaScript là cú pháp gọi (call syntax): nếu tham chiếu đến một hàm được theo sau bởi dấu ngoặc đơn và một số giá trị được phân tách bằng dấu phẩy tùy chọn: `someFunctionValue(arg1, arg2, etc)`, thì phần thân hàm sẽ được thực thi với các đối số được cung cấp (nếu có) .
 - Chúng ta sẽ chứng minh rằng các hàm có thể được truyền dưới dạng giá trị bằng cách chuyển cho bạn một hàm dưới dạng đối số.
 
-  - Ví dụ: Triển khai một hàm nhận một hàm đối số đầu tiên, một số `num` làm đối số thứ hai của nó, sau đó thực thi hàm được truyền trong `num` thời gian hàm
+  - Ví dụ: Triển khai một hàm nhận một hàm đối số đầu tiên, một số `num` làm đối số thứ hai của nó, sau đó thực thi hàm được truyền trong `num` thời gian hàm.
 
   ```js
   function repeat(operation, num) {
@@ -172,21 +172,21 @@ https://github.com/timoxley/functional-javascript-workshop
 
 - `Pototype` là cơ chế để thực hiện mô hình OOP của Javascript, mà các object được kế thừa các tính năng như nhau. Mỗi một object trong Javascript đều có một thuộc tính nội bộ (internal property) gọi là prototype.
 
-```js
-var objCreated = Object.create({ quack: true });
-var objCreatedSlash = { quack: true };
-var object = Object.create(null);
-object.quack = function () {
-  console.log("quack");
-};
-console.log(Object.getPrototypeOf(object) === Object.prototype); // => false
-console.log(Object.getPrototypeOf(object) === null); // => true
-console.log(Object.prototype.hasOwnProperty.call(object, "quack")); // => true
-//check objCreated
-console.log(Object.prototype.hasOwnProperty.call(objCreated, "quack")); // => false
-//check objCreatedSlash
-console.log(Object.prototype.hasOwnProperty.call(objCreatedSlash, "quack")); // => true
-```
+  ```js
+  var objCreated = Object.create({ quack: true });
+  var objCreatedSlash = { quack: true };
+  var object = Object.create(null);
+  object.quack = function () {
+    console.log("quack");
+  };
+  console.log(Object.getPrototypeOf(object) === Object.prototype); // => false
+  console.log(Object.getPrototypeOf(object) === null); // => true
+  console.log(Object.prototype.hasOwnProperty.call(object, "quack")); // => true
+  //check objCreated
+  console.log(Object.prototype.hasOwnProperty.call(objCreated, "quack")); // => false
+  //check objCreatedSlash
+  console.log(Object.prototype.hasOwnProperty.call(objCreatedSlash, "quack")); // => true
+  ```
 
 - Sự khác biệt giữa 2 cách khởi tạo đối tượng
 
@@ -244,7 +244,7 @@ console.log(Object.prototype.hasOwnProperty.call(objCreatedSlash, "quack")); // 
 
 ## Partial Application with Bind
 
-- Phương thức `bind()` là một hàm Javascript nguyên bản giúp chúng ta đạt được cả ứng dụng từng phần và trình duyệt. Nó đảm bảo hàm được gọi từ một `this` ngữ cảnh củ thể, với `n` đối số được cho trước
+- Phương thức `bind()` là một hàm Javascript nguyên bản giúp chúng ta đạt được cả ứng dụng từng phần và trình duyệt. Nó đảm bảo hàm được gọi từ một `this` ngữ cảnh củ thể, với `n` đối số được cho trước.
 
 - Ví dụ: Sử dụng `Function#bind` để triển khai một logging function cho phép bạn thông báo namespace. Bạn phải lấy một string namespace và trả về một function in thông báo tới bảng điều khiển với namespace được thêm vào trước. Đảm bảo tất cả các đối số được truyền cho hàm ghi được trả về đều được in.
 
@@ -284,7 +284,7 @@ console.log(Object.prototype.hasOwnProperty.call(objCreatedSlash, "quack")); // 
 
 - `Spies` cho phép bạn giám sát một chức năng, chúng hiển thị các tùy chọn để theo dõi số lượng lệnh gọi, đối số và giá trị trả về. Điều này cho phép bạn viết các bài kiểm tra để xác minh hành vi của chức năng.
 
-- Ví dụ: Ghi đè một phương thức được chỉ định của một đối tượng có chức năng mới trong khi vẫn duy trì tất cả các hành vi cũ
+- Ví dụ: Ghi đè một phương thức được chỉ định của một đối tượng có chức năng mới trong khi vẫn duy trì tất cả các hành vi cũ.
 
   ```js
   function Spy(target, method) {
@@ -401,7 +401,7 @@ console.log(Object.prototype.hasOwnProperty.call(objCreatedSlash, "quack")); // 
 
 ## Recursion
 
-- Ví dụ: Triển khai một recursive function trả về các phụ thuộc dun nhất và phụ thuộc con của mô-đun được sắp xết theo thứ tự bảng chữ cái. Các phần phụ thộc được in dưới dạng phiên bản phủ thuộc
+- Ví dụ: Triển khai một recursive function trả về các phụ thuộc dun nhất và phụ thuộc con của mô-đun được sắp xết theo thứ tự bảng chữ cái. Các phần phụ thộc được in dưới dạng phiên bản phủ thuộc.
 
 - Nhiều phiên bản của cùng một mô-đun được phép, nhưng các mô-đun trùng lặp của cùng một phiên bản phải được loại bỏ.
 
@@ -422,7 +422,7 @@ console.log(Object.prototype.hasOwnProperty.call(objCreatedSlash, "quack")); // 
 
 ## Currying
 
-- `Currying` là một kỹ thuật nâng cao để làm việc với các chức năng, làm đơn giản hóa một hàm bằng cách chia nhỏ nó thành nhiều hàm một đối số. Nó không chỉ được sử dụng trong Javascript mà còn được sử dụng trong các ngôn ngữ khác
+- `Currying` là một kỹ thuật nâng cao để làm việc với các chức năng, làm đơn giản hóa một hàm bằng cách chuyển đổi hàm của nhiều đối số thành một số hàm của một đối số duy nhất theo trình tự. Nó không chỉ được sử dụng trong Javascript mà còn được sử dụng trong các ngôn ngữ khác.
 
 - Ví dụ: Tạo một hàm 'curryN' cho một số lượng đối số tùy ý, curryN sẽ nhận hai tham số
 
